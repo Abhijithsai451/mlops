@@ -4,8 +4,9 @@ base:
   target_col: Output
 
 data_source:
-  batch_files: Training_Batch_Files
+  batch_files: mlops/mlops_main/Training_Batch_Files
 
+data_path: "git@github.com:iNeuron-Pvt-Ltd/wafer-dataset.git"
 
 data_preparation:
   training_db: Training.db
