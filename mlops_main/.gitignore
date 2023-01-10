@@ -7,7 +7,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-paths.py
+project_secrets.py
 env/
 build/
 develop-eggs/
