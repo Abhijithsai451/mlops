@@ -18,14 +18,8 @@ logging.basicConfig(
     filemode="a"
     )
 
-
 def main(config_path):
-    # TO DO
-    # 3. Exploratory Data Analysis (Matplotlib and sklearn)
-    # 4. Prepare and archive the data (stage into a temp location)
-
-
-    ## read config files
+    # Read config files
     config = read_yaml(os.path.join(home_path,config_path))
 
     # 1. Importing the data -> using YAML & Creating the data frame
