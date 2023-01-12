@@ -14,7 +14,7 @@ home_path = project_secrets.home_path
 
 logging.basicConfig(
     filename = os.path.join(home_path,log_path,'running_logs.log'),
-    level= logging.INFO,
+    level= logging.DEBUG,
     format="[%(asctime)s: %(levelname)s: %(module)s]: %(message)s",
     filemode ="a"
 )

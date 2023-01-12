@@ -17,6 +17,7 @@ data_preparation:
   TrainingArchiveBadData: data/TrainingArchiveBadData
   Training_FileFromDB: data/Training_FileFromDB
   master_csv: master.csv
+  archive : mlops/mlops_main/Archive/
 
 pred_data_preparation:
   prediction_db: Prediction.db
