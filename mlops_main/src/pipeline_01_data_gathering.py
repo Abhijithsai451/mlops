@@ -33,13 +33,12 @@ def main(config_path):
         local_data_dir = config["data_source"]["batch_files"]
         # 1. Check if the data path exists
         # 2. If path exists then continue
-        # 3. If path doesnt exist, clone the data repo from github
         data_path = os.path.join(project_secrets.home_path,local_data_dir)
         if os.path.exists(data_path):
             logging.info(">>>>>>>>>>>>> Batch Files already present <<<<<<<<<<<")
         else:
             git_path = config["data_path"]
-            clone_data(git_path,data_path)
+            #clone_data(git_path,data_path)
         return logging.info(">>>>>>>>>>>>> CLONED the Repositiory <<<<<<<<<<<")
 
 

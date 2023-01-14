@@ -9,6 +9,7 @@ __pycache__/
 .Python
 project_secrets.py
 logs/running_logs.log
+data/
 env/
 build/
 develop-eggs/

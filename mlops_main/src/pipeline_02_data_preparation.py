@@ -52,7 +52,7 @@ def main(config_path):
         logging.info("Archive path does not exist. creating the file location ")
         os.mkdir(archive_path)
         logging.info("Created the file location and Saving the file to the location")
-        df.to_csv(os.path.join(archive_path,'data.csv'))
+        df.to_csv(os.path.join(archive_path,'data.csv'),encoding='utf-8')
 
 if __name__ == '__main__':
     args = argparse.ArgumentParser()
