@@ -47,7 +47,7 @@ def main(config_path):
 
     if (os.path.exists(archive_path)):
         logging.info("Archive path Already exists. Saving the file to the location ")
-        df.to_csv(os.path.join(archive_path,'data.csv'))
+        df.to_csv(os.path.join(archive_path,'*.csv'))
     else:
         logging.info("Archive path does not exist. creating the file location ")
         os.mkdir(archive_path)
