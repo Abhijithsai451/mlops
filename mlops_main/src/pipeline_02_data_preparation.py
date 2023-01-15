@@ -18,14 +18,8 @@ logging.basicConfig(
     filemode="a"
     )
 
-
 def main(config_path):
-    # TO DO
-    # 3. Exploratory Data Analysis (Matplotlib and sklearn)
-    # 4. Prepare and archive the data (stage into a temp location)
-
-
-    ## read config files
+    # Read config files
     config = read_yaml(os.path.join(home_path,config_path))
 
     # 1. Importing the data -> using YAML & Creating the data frame
@@ -53,12 +47,12 @@ def main(config_path):
 
     if (os.path.exists(archive_path)):
         logging.info("Archive path Already exists. Saving the file to the location ")
-        df.to_csv(os.path.join(archive_path,'data.csv'))
+        df.to_csv(os.path.join(archive_path,'*.csv'))
     else:
         logging.info("Archive path does not exist. creating the file location ")
         os.mkdir(archive_path)
         logging.info("Created the file location and Saving the file to the location")
-        df.to_csv(os.path.join(archive_path,'data.csv'))
+        df.to_csv(os.path.join(archive_path,'data.csv'),encoding='utf-8')
 
 if __name__ == '__main__':
     args = argparse.ArgumentParser()

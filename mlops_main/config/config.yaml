@@ -1,10 +1,10 @@
 base:
-  project: Wafer-Quality-Project
+  project: Basketball-Data-Project
   random_state: 42
   target_col: Output
 
 data_source:
-  batch_files: mlops/mlops_main/Training_Batch_Files
+  batch_files: mlops/mlops_main/data/kaggle_data/
 
 data_path: "git@github.com:iNeuron-Pvt-Ltd/wafer-dataset.git"
 
