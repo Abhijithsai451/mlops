@@ -3,6 +3,8 @@ base:
   random_state: 42
   target_col: Output
 
+script_path : mlops/Scripts
+
 data_source:
   batch_files: mlops/mlops_main/data/kaggle_data/
 
