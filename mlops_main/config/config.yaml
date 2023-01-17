@@ -6,7 +6,8 @@ base:
 script_path : mlops/Scripts
 
 data_source:
-  batch_files: mlops/mlops_main/data/kaggle_data/
+  batch_files: mlops/mlops_main/Archive/
+
 
 data_path: "git@github.com:iNeuron-Pvt-Ltd/wafer-dataset.git"
 

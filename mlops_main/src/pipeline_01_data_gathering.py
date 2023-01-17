@@ -25,18 +25,6 @@ logging.basicConfig(
     filemode ="a"
 )
 
-'''
-
-subprocess.call(shlex.split('./test.sh param1 param2'))
-with test.sh in the same folder:
-
-#!/bin/sh
-echo $1
-echo $2
-
-exit 0
-Outputs:
-'''
 def sqlite_connect(path):
     logging.info("Establishing the connection to the database.")
     connection = sql.connect(path)
@@ -70,6 +58,7 @@ def main(config_path):
         logging.info("Extracting the database from the path")
         conn = load_data(data_path,config)
     else:
+        logging.info("executing the shell script which imports and extracts the data to desired location ")
         subprocess.call(shlex.split('./data_import.sh'))
 
 if __name__ =='__main__':
@@ -85,40 +74,3 @@ if __name__ =='__main__':
     except Exception as e:
         logging.exception(e)
         raise e
-
-
-'''
-def clone_data(git_path,data_path):
-    os.mkdir(data_path)
-    Repo.clone_from(git_path,data_path)
-    logging.info(">>>>>>>>>>>>> Batch Files cloned from the GITHUB Repository <<<<<<<<<<<")
-
-def main(config_path):
-
-        config = read_yaml(os.path.join(home_path,config_path))
-        local_data_dir = config["data_source"]["batch_files"]
-        # 1. Check if the data path exists
-        # 2. If path exists then continue
-        data_path = os.path.join(project_secrets.home_path,local_data_dir)
-        if os.path.exists(data_path):
-            logging.info(">>>>>>>>>>>>> Batch Files already present <<<<<<<<<<<")
-        else:
-            git_path = config["data_path"]
-            #clone_data(git_path,data_path)
-        return logging.info(">>>>>>>>>>>>> CLONED the Repositiory <<<<<<<<<<<")
-
-
-if __name__ =='__main__':
-    args = argparse.ArgumentParser()
-    args.add_argument("--config","-c",default="mlops/mlops_main/config/config.yaml")
-    parsed_args = args.parse_args()
-
-    try:
-        logging.info("\n*************************************")
-        logging.info(f">>>>>>>> stage {STAGE} started  <<<<<<<<<<<<")
-        main(config_path = parsed_args.config)
-        logging.info(f">>>>> stage {STAGE} completed!<<<<<\n")
-    except Exception as e:
-        logging.exception(e)
-        raise e
-'''
