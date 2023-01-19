@@ -1,25 +1,33 @@
+import argparse
 import glob
 import logging
 import os
-import argparse
-from mlops_main import project_secrets
-from mlops_main.src.utils.common import read_yaml
+import warnings
+
 import pandas as pd
+
 from Visualize import drafting_data_analytics
 from Visualize import gameplay_data_analytics
 from Visualize import player_data_analytics
 from Visualize import team_data_analytics
+from mlops_main import project_secrets
+from mlops_main.src.utils.common import read_yaml
+
+warnings.filterwarnings("ignore")
+
+
 STAGE = "State 02 Data Visualization"
 
 log_path = project_secrets.log_path
 home_path = project_secrets.home_path
 
 logging.basicConfig(
-    #filename=os.path.join(home_path,log_path,'running_logs.log'),
+    # filename=os.path.join(home_path,log_path,'running_logs.log'),
     level=logging.DEBUG,
     format="[%(asctime)s: %(levelname)s: %(module)s]: %(message)s",
     filemode="a"
-    )
+)
+
 
 # Data Present in Archive
 # Import the data and perform EDA on mulitple tables.
@@ -27,10 +35,10 @@ logging.basicConfig(
 
 def main(config_path):
     # Read config files
-    config = read_yaml(os.path.join(home_path,config_path))
+    config = read_yaml(os.path.join(home_path, config_path))
 
     # Importing the csv files
-    data_path = os.path.join(home_path,config['data_source']['batch_files'])
+    data_path = os.path.join(home_path, config['data_source']['batch_files'])
     logging.info(data_path)
     csv_files = glob.glob(data_path + "/*.csv")
     logging.info(">>>>>>>>>>2.1 Importing the Data  <<<<<<<<<")
@@ -49,7 +57,7 @@ def main(config_path):
     player_df = pd.read_csv(data_path + 'Player.csv')
     player_salary_df = pd.read_csv(data_path + 'Player_Salary.csv')
     player_attributes_df = pd.read_csv(data_path + 'Player_Attributes.csv')
-    status = player_data_analytics.data_analysis(player_df, player_salary_df,player_attributes_df)
+    status = player_data_analytics.data_analysis(player_df, player_salary_df, player_attributes_df)
     logging.info(status)
 
     # 4. Team Data
@@ -101,6 +109,3 @@ if __name__ == '__main__':
     except Exception as e:
         logging.exception(e)
         raise e
-
-
-
