@@ -19,7 +19,7 @@ log_path = project_secrets.log_path
 home_path = project_secrets.home_path
 
 logging.basicConfig(
-    filename=os.path.join(home_path, log_path, 'running_logs.log'),
+    #filename=os.path.join(home_path, log_path, 'running_logs.log'),
     level=logging.DEBUG,
     format="[%(asctime)s: %(levelname)s: %(module)s]: %(message)s",
     filemode="a"
@@ -33,22 +33,15 @@ def sqlite_connect(path):
     return connection
 
 
-def load_to_pd(conn, config):
-    meta_df = pd.read_sql_query("SELECT name FROM sqlite_schema WHERE type='table'", conn)
-    tables = meta_df['name']
-    logging.info("creating a csv file from the sqlite.")
-    for table in tables:
-        df = pd.read_sql_query("SELECT * from " + table, conn)
-        logging.info(f'Created a csv file for the table : {table}')
-        df.to_csv(os.path.join(home_path, config['data_preparation']['archive'], table + '.csv'))
-    logging.info("Data import to csv files: SUCCESS ")
 
 
+"""
+Sqlite connection 
+
+"""
 def load_data(data_path, config):
     conn = sqlite_connect(data_path)
     logging.info("Loading the required Databases")
-    load_to_pd(conn, config)
-
 
 def main(config_path):
     # 1. Check if the data is preset.

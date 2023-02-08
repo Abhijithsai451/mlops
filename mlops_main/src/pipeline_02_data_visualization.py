@@ -2,11 +2,11 @@ import argparse
 import glob
 import logging
 import os
+import sqlite3 as sql
 import warnings
 
 import pandas as pd
 
-from Visualize import drafting_data_analytics
 from Visualize import gameplay_data_analytics
 from Visualize import player_data_analytics
 from Visualize import team_data_analytics
@@ -15,18 +15,23 @@ from mlops_main.src.utils.common import read_yaml
 
 warnings.filterwarnings("ignore")
 
-
 STAGE = "State 02 Data Visualization"
 
 log_path = project_secrets.log_path
 home_path = project_secrets.home_path
-
 logging.basicConfig(
     # filename=os.path.join(home_path,log_path,'running_logs.log'),
     level=logging.DEBUG,
     format="[%(asctime)s: %(levelname)s: %(module)s]: %(message)s",
     filemode="a"
 )
+
+
+def sqlite_connect(path):
+    logging.info("Establishing the connection to the database.")
+    connection = sql.connect(path)
+    logging.info("Establishing the connection to the database -> SUCCESS")
+    return connection
 
 
 # Data Present in Archive
@@ -36,31 +41,24 @@ logging.basicConfig(
 def main(config_path):
     # Read config files
     config = read_yaml(os.path.join(home_path, config_path))
-
-    # Importing the csv files
-    data_path = os.path.join(home_path, config['data_source']['batch_files'])
-    logging.info(data_path)
-    csv_files = glob.glob(data_path + "/*.csv")
-    logging.info(">>>>>>>>>>2.1 Importing the Data  <<<<<<<<<")
-
+    data_dir = config["data_source"]["batch_files"]
+    data_path = os.path.join(home_path, data_dir)
+    data_path = os.path.join(data_path, "basketball.sqlite")
+    conn = sqlite_connect(data_path)
     # EDA
-    # 1. Draft Data
-    draft_df = pd.read_csv(data_path + 'Draft.csv')
-    status = drafting_data_analytics.data_analysis(draft_df)
-    logging.info(status)
-    # 2. Gameplay Data
-    game_df = pd.read_csv(data_path + 'Game.csv')
-    status = gameplay_data_analytics.data_analysis(game_df)
+    # 1. Gameplay Data
+    status = gameplay_data_analytics.data_analysis(conn)
     logging.info(status)
 
-    # 3. Player Data
+
+    # 2. Player Data
     player_df = pd.read_csv(data_path + 'Player.csv')
     player_salary_df = pd.read_csv(data_path + 'Player_Salary.csv')
     player_attributes_df = pd.read_csv(data_path + 'Player_Attributes.csv')
     status = player_data_analytics.data_analysis(player_df, player_salary_df, player_attributes_df)
     logging.info(status)
 
-    # 4. Team Data
+    # 3. Team Data
     team_df = pd.read_csv(data_path + 'Team.csv')
     player_salary_df = pd.read_csv(data_path + 'Player_Salary.csv')
     status = team_data_analytics.data_analysis(team_df, player_salary_df)
