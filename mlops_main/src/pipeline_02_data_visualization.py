@@ -1,5 +1,4 @@
 import argparse
-import glob
 import logging
 import os
 import sqlite3 as sql
@@ -49,7 +48,6 @@ def main(config_path):
     # 1. Gameplay Data
     status = gameplay_data_analytics.data_analysis(conn)
     logging.info(status)
-
 
     # 2. Player Data
     player_df = pd.read_csv(data_path + 'Player.csv')
