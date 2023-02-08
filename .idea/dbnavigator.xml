@@ -39,6 +39,7 @@
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="f5919810-f307-4485-b8f0-7129da464932" dataset="main.Draft" active-filter-id="" />
     <filter-actions connection-id="f5919810-f307-4485-b8f0-7129da464932" dataset="main.Player" active-filter-id="951ad370-8a01-49f2-9d04-54cf46de98eb">
       <filter id="951ad370-8a01-49f2-9d04-54cf46de98eb" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
         <condition column="first_name" operator="=" value="" active="true" />
